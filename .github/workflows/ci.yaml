@@ -36,6 +36,9 @@ jobs:
     - name: run migrations
       run: make migrateup
 
+    - name: install migrations
+      run: curl -L https://github.com/golang-migrate/migrate/releases/download/v4.16.2/migrate.darwin-amd64.tar.gz | tar xvz
+
     - name: Test
       uses: actions/setup-go@v4
       with:
