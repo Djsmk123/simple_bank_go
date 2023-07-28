@@ -45,7 +45,7 @@ jobs:
 
     
 
-    - name: Test
+    - name: Go checkout 
       uses: actions/setup-go@v4
       with:
         go-version: '1.20'

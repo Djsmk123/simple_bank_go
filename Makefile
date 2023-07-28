@@ -15,4 +15,7 @@ migrateDown:
 test: 
 	go test -v -cover ./...
 
+run:
+	go run main.go
+
 .PHONY: postgres createdb dropdb migrateup migrateDown test
