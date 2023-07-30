@@ -14,8 +14,10 @@ migrateDown:
 	.migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down
 test: 
 	go test -v -cover ./...
+openDB:
+	docker exec -it postgress-db psql -U postgres -d simple_bank
 
 run:
 	go run main.go
 
-.PHONY: postgres createdb dropdb migrateup migrateDown test
+.PHONY: postgres createdb dropdb migrateup migrateDown test openDB

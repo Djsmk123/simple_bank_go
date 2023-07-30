@@ -4,8 +4,9 @@ import (
 	"database/sql"
 	"log"
 	"os"
-	"simple_bank/db/utils"
 	"testing"
+
+	"github.com/djsmk123/simplebank/utils"
 
 	_ "github.com/lib/pq"
 )

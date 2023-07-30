@@ -3,9 +3,10 @@ package main
 import (
 	"database/sql"
 	"log"
-	"simple_bank/db/api"
-	db "simple_bank/db/db/sqlc"
-	"simple_bank/db/utils"
+
+	"github.com/djsmk123/simplebank/api"
+	db "github.com/djsmk123/simplebank/db/sqlc"
+	"github.com/djsmk123/simplebank/utils"
 )
 
 func main() {
