@@ -17,7 +17,10 @@ test:
 openDB:
 	docker exec -it postgress-db psql -U postgres -d simple_bank
 
+mockdb: 
+	mockgen --destination db/mock/store.go github.com/djsmk123/simplebank/db/sqlc Store
+
 run:
 	go run main.go
 
-.PHONY: postgres createdb dropdb migrateup migrateDown test openDB
+.PHONY: postgres createdb dropdb migrateup migrateDown test openDB mockdb 
