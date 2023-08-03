@@ -41,7 +41,7 @@ jobs:
         which migrate
 
     - name: run migrations
-      run: make migrateup
+      run: make mgup
 
     
 
