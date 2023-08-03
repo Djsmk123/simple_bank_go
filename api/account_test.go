@@ -18,19 +18,6 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-/*
-	[{
-		"resource": "/C:/Users/Smk_winner/simplebank/api/account_test.go",
-		"owner": "go-staticcheck",
-		"severity": 4,
-		"message": "\"io/ioutil\" has been deprecated since Go 1.19: As of Go 1.16, the same functionality is now provided by package io or package os, and those implementations should be preferred in new code. See the specific function documentation for details.  (SA1019)",
-		"source": "go-staticcheck",
-		"startLineNumber": 8,
-		"startColumn": 2,
-		"endLineNumber": 8,
-		"endColumn": 13
-	}]
-*/
 func TestGetAccountAPI(t *testing.T) {
 	account := randomAccount()
 	testCases := []struct {
@@ -79,7 +66,6 @@ func TestGetAccountAPI(t *testing.T) {
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
-
 			},
 		},
 	}
@@ -90,7 +76,6 @@ func TestGetAccountAPI(t *testing.T) {
 			defer ctrl.Finish()
 			store := mockdb.NewMockStore(ctrl)
 			tc.buildStub(store)
-
 			server := NewServer(store)
 			recorder := httptest.NewRecorder()
 

@@ -7,11 +7,15 @@ createdb:
 dropdb:
 	docker exec -it postgress-db dropdb simple_bank
 
-migrateup:
+mgup:
 	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" up
+mgup1:
+	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" up 1
 
-migrateDown:
-	.migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down
+mgd:
+	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down
+mgd1:
+	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down 1
 test: 
 	go test -v -cover ./...
 openDB:
@@ -20,7 +24,10 @@ openDB:
 mockdb: 
 	mockgen --destination db/mock/store.go github.com/djsmk123/simplebank/db/sqlc Store
 
+sqlcgen:
+	docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate	
+
 run:
 	go run main.go
 
-.PHONY: postgres createdb dropdb migrateup migrateDown test openDB mockdb 
+.PHONY: postgres createdb dropdb mgup mgup1 mgd mgd1  test openDB mockdb 
