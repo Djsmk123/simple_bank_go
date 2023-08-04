@@ -23,7 +23,8 @@ func TestTransferTx(t *testing.T) {
 	// run n concurrent transfer transaction
 	for i := 0; i < n; i++ {
 		go func() {
-			result, err := testStore.Transferx(context.Background(), TransfersTxParams{
+			fmt.Println(">> here:", account1.Balance, account2.Balance)
+			result, err := testStore.TransferTx(context.Background(), TransfersTxParams{
 				FromAccountId: account1.ID,
 				ToAccountId:   account2.ID,
 				Amount:        amount,
@@ -134,7 +135,7 @@ func TestTransferTxDeadlock(t *testing.T) {
 		}
 
 		go func() {
-			_, err := testStore.Transferx(context.Background(), TransfersTxParams{
+			_, err := testStore.TransferTx(context.Background(), TransfersTxParams{
 				FromAccountId: fromAccountID,
 				ToAccountId:   toAccountID,
 				Amount:        amount,

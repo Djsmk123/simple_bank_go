@@ -9,7 +9,7 @@ import (
 
 type Store interface {
 	Querier
-	Transferx(ctx context.Context, arg TransfersTxParams) (TranferTxResult, error)
+	TransferTx(ctx context.Context, arg TransfersTxParams) (TranferTxResult, error)
 }
 
 type SQLStore struct {
@@ -57,9 +57,10 @@ type TranferTxResult struct {
 	ToEntry     Entry    `json:"to_entry"`
 }
 
-func (store *SQLStore) Transferx(ctx context.Context, arg TransfersTxParams) (TranferTxResult, error) {
+func (store *SQLStore) TransferTx(ctx context.Context, arg TransfersTxParams) (TranferTxResult, error) {
 	var result TranferTxResult
 	err := store.execTx(ctx, func(q *Queries) error {
+		fmt.Println("Transaction start")
 		var err error
 		txName := ctx.Value(txKey)
 		fmt.Println(txName, "create transaction")
@@ -68,18 +69,21 @@ func (store *SQLStore) Transferx(ctx context.Context, arg TransfersTxParams) (Tr
 			ToAccountID:   arg.ToAccountId,
 			Amount:        arg.Amount,
 		})
+		fmt.Println("Transaction created successfully")
 
 		if err != nil {
 			return err
 		}
-		fmt.Println(txName, "create entry 1")
+
 		result.FromEntry, err = q.CreateEntry(ctx, CreateEntryParams{
 			AccountID: arg.FromAccountId,
 			Amount:    -arg.Amount,
 		})
+
 		if err != nil {
 			return err
 		}
+		fmt.Println("Transaction created successfully")
 		fmt.Println(txName, "create entry 2")
 
 		result.ToEntry, err = q.CreateEntry(ctx, CreateEntryParams{
