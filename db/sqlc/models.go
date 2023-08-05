@@ -24,6 +24,13 @@ type Entry struct {
 	CreatedAt time.Time
 }
 
+type Token struct {
+	Token     string
+	Username  string
+	IssuedAt  time.Time
+	ExpiredAt time.Time
+}
+
 type Transfer struct {
 	ID            int64
 	FromAccountID int64

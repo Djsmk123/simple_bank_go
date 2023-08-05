@@ -89,6 +89,7 @@ func (server *Server) LoginUser(ctx *gin.Context) {
 		return
 	}
 	user, err := server.store.GetUser(ctx, req.Username)
+
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
@@ -109,6 +110,12 @@ func (server *Server) LoginUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
 	rsp := LoginUserResponse{
 		AccessToken: accesstoken,
 		User:        newUserResponse(user),

@@ -11,11 +11,17 @@ mgup:
 	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" up
 mgup1:
 	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" up 1
+mgup2:
+	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" up 2
+	
 
 mgd:
 	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down
 mgd1:
 	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down 1
+	
+mgd2:
+	migrate -path db/migration -database "postgres://postgres:1235789@localhost:5432/simple_bank?sslmode=disable" down 2
 test: 
 	go test -v -cover ./...
 openDB:
@@ -31,4 +37,4 @@ sqlcgen:
 run:
 	go run main.go
 
-.PHONY: postgres createdb dropdb mgup mgup1 mgd mgd1  test openDB mock 
+.PHONY: postgres createdb dropdb mgup mgup1 mgup2 mgd mgd1 mgd2  test openDB mock 
