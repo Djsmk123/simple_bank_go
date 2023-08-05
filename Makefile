@@ -21,8 +21,9 @@ test:
 openDB:
 	docker exec -it postgress-db psql -U postgres -d simple_bank
 
-mockdb: 
-	mockgen --destination db/mock/store.go github.com/djsmk123/simplebank/db/sqlc Store
+
+mock:
+	mockgen --package mock --destination db/mock/store.go "github.com/djsmk123/simplebank/db/sqlc" Store
 
 sqlcgen:
 	docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate	
@@ -30,4 +31,4 @@ sqlcgen:
 run:
 	go run main.go
 
-.PHONY: postgres createdb dropdb mgup mgup1 mgd mgd1  test openDB mockdb 
+.PHONY: postgres createdb dropdb mgup mgup1 mgd mgd1  test openDB mock 
